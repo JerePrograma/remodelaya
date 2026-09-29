@@ -2,7 +2,10 @@ import { useState } from "react";
 import { services } from "./services";
 
 const SITE_ASSET_BASE = "https://remodelaya.jereprograma.chatgpt.site/assets";
-const BRAND_MARK = "/assets/brand-mark.png";\nconst HERO_IMAGE = "/assets/interior-hero.webp";\nconst BRAND_MARK_FALLBACK = `${SITE_ASSET_BASE}/brand-mark.png`;\nconst HERO_IMAGE_FALLBACK = `${SITE_ASSET_BASE}/interior-hero.webp`;
+const BRAND_MARK = "/assets/brand-mark.png";
+const HERO_IMAGE = "/assets/interior-hero.webp";
+const BRAND_MARK_FALLBACK = `${SITE_ASSET_BASE}/brand-mark.png`;
+const HERO_IMAGE_FALLBACK = `${SITE_ASSET_BASE}/interior-hero.webp`;
 
 const WHATSAPP_LABEL = "11 2779 2932";
 const WHATSAPP_NUMBER = "5491127792932";
