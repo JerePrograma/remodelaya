@@ -2,8 +2,7 @@ import { useState } from "react";
 import { services } from "./services";
 
 const SITE_ASSET_BASE = "https://remodelaya.jereprograma.chatgpt.site/assets";
-const BRAND_MARK = `${SITE_ASSET_BASE}/brand-mark.png`;
-const HERO_IMAGE = `${SITE_ASSET_BASE}/interior-hero.webp`;
+const BRAND_MARK = "/assets/brand-mark.png";\nconst HERO_IMAGE = "/assets/interior-hero.webp";\nconst BRAND_MARK_FALLBACK = `${SITE_ASSET_BASE}/brand-mark.png`;\nconst HERO_IMAGE_FALLBACK = `${SITE_ASSET_BASE}/interior-hero.webp`;
 
 const WHATSAPP_LABEL = "11 2779 2932";
 const WHATSAPP_NUMBER = "5491127792932";
@@ -17,7 +16,17 @@ function whatsappUrl(message: string) {
 function Brand() {
   return (
     <a className="brand" href="#inicio" aria-label="Remodelaya, inicio">
-      <img className="brand__mark" src={BRAND_MARK} alt="" width="58" height="58" />
+      <img
+        className="brand__mark"
+        src={BRAND_MARK}
+        alt=""
+        width="58"
+        height="58"
+        onError={(event) => {
+          event.currentTarget.onerror = null;
+          event.currentTarget.src = BRAND_MARK_FALLBACK;
+        }}
+      />
       <span className="brand__copy">
         <strong>REMODELAYA</strong>
         <small>CONSTRUCCIÓN INTEGRAL Y REFACCIONES</small>
@@ -120,7 +129,14 @@ function App() {
 
             <div className="hero__visual">
               <figure className="hero-figure">
-                <img src={HERO_IMAGE} alt="Interior luminoso de una casa renovada" />
+                <img
+                  src={HERO_IMAGE}
+                  alt="Interior luminoso de una casa renovada"
+                  onError={(event) => {
+                    event.currentTarget.onerror = null;
+                    event.currentTarget.src = HERO_IMAGE_FALLBACK;
+                  }}
+                />
                 <div className="hero-figure__shade" />
                 <div className="hero-figure__caption">
                   <strong>ESPACIOS PARA VIVIR MEJOR</strong>
