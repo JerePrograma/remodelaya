@@ -371,6 +371,9 @@ try {
   report.functional.push(
     "WhatsApp destinations/encoding, preserved phone correction, dynamic year and reduced motion",
   );
+  await page.goto(baseUrl, { waitUntil: "load" });
+  const tabLimit =
+    (await page.locator("a[href], button, input, select, textarea, [tabindex]").count()) + 1;
   for (const [label, email] of [
     ["Presupuestos por email", "presupuestos@remodelaya.com.ar"],
     ["Consultas generales", "contacto@remodelaya.com.ar"],
@@ -378,8 +381,12 @@ try {
     const link = page.getByRole("link", { name: `${label} ${email}`, exact: true });
     assert.equal(await link.getAttribute("href"), `mailto:${email}`);
     assert.equal(await link.locator("small").textContent(), email);
-    await link.focus();
+    for (let tabs = 0; tabs < tabLimit; tabs++) {
+      await page.keyboard.press("Tab");
+      if (await link.evaluate((a) => a === document.activeElement)) break;
+    }
     assert.equal(await link.evaluate((a) => a === document.activeElement), true);
+    assert.equal(await link.evaluate((a) => a.matches(":focus-visible")), true);
     assert.equal(await link.evaluate((a) => getComputedStyle(a).outlineStyle), "solid");
   }
   report.functional.push("Labeled mailto links, exact public addresses and visible keyboard focus");
