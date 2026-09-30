@@ -1,0 +1,4 @@
+# Keep the exported source byte-stable on Windows and Unix checkouts.
+site/*.html text eol=lf
+site/*.css text eol=lf
+site/*.js text eol=lf

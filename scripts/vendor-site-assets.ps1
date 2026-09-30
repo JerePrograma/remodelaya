@@ -1,7 +1,7 @@
 $ErrorActionPreference = 'Stop'
 
 $projectRoot = Split-Path -Parent $PSScriptRoot
-$assetDir = Join-Path $projectRoot 'public\assets'
+$assetDir = Join-Path $projectRoot 'site\assets'
 
 New-Item -ItemType Directory -Force -Path $assetDir | Out-Null
 
@@ -17,5 +17,5 @@ foreach ($entry in $assets.GetEnumerator()) {
 }
 
 Write-Host ''
-Write-Host 'Assets originales de Sites copiados a public\assets.'
-Write-Host 'Antes de retirar Sites, versionalos en Git y cambia App.tsx para usar /assets/*.'
+Write-Host 'Assets originales de Sites copiados a site\assets.'
+Write-Host 'Verificá los cambios con npm run build y npm test antes de versionarlos.'

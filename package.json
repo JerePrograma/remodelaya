@@ -5,20 +5,14 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "node scripts/build-static.mjs",
     "preview": "vite preview",
-    "capture:sites": "node scripts/capture-sites.mjs"
-  },
-  "dependencies": {
-    "@vitejs/plugin-react": "^5.0.0",
-    "vite": "^7.0.0",
-    "typescript": "^5.8.0",
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0"
+    "test": "node scripts/verify-source.mjs",
+    "capture:sites": "node scripts/capture-sites.mjs",
+    "verify:sites": "node scripts/verify-sites.mjs"
   },
   "devDependencies": {
-    "@types/react": "^19.1.0",
-    "@types/react-dom": "^19.1.0",
+    "vite": "^7.0.0",
     "playwright": "^1.55.0"
   }
 }

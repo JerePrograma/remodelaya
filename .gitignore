@@ -6,3 +6,6 @@ dist
 !.env.example
 .DS_Store
 Thumbs.db
+
+# Local visual verification output; canonical captures remain versioned.
+reference/sites-current/
