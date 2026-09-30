@@ -29,3 +29,17 @@ jobs:
 
       - name: Verify static source and build
         run: npm test
+
+      - name: Install browser for responsive checks
+        run: npx playwright install --with-deps chromium
+
+      - name: Verify responsive layout and interactions
+        run: npm run verify:sites
+
+      - name: Upload browser verification artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: browser-verification
+          path: reference/sites-current/
+          if-no-files-found: ignore

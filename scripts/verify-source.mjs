@@ -17,6 +17,20 @@ const sourceHashes = {
 const sha256 = (bytes) => createHash("sha256").update(bytes).digest("hex");
 const html = await readFile(path.join(root, "site/index.html"), "utf8");
 let canonicalHtml = html;
+const emailContacts = [
+  ["Presupuestos por email", "presupuestos@remodelaya.com.ar"],
+  ["Consultas generales", "contacto@remodelaya.com.ar"],
+];
+const mailIcon = '    <symbol id="mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></symbol>\n';
+const emailStyles = '\n/* Email contact links keep long addresses within narrow screens. */\n.contact-details{min-width:0}.contact-links>a.contact-email>span{min-width:0;font-size:16px}.contact-links>a.contact-email small{font-size:13px;overflow-wrap:anywhere}\n';
+const authorizedAdditions = [mailIcon, ...emailContacts.map(([label, email]) =>
+  `<a class="contact-email" href="mailto:${email}"><svg class="icon" aria-hidden="true"><use href="#mail"/></svg><span>${label}<small>${email}</small></span><svg class="icon" aria-hidden="true"><use href="#arrow"/></svg></a>`,
+)];
+for (const addition of authorizedAdditions) {
+  assert.equal(canonicalHtml.split(addition).length - 1, 1, "Expected one approved email contact addition");
+  canonicalHtml = canonicalHtml.replace(addition, "");
+}
+assert.equal((html.match(/href="mailto:/g) ?? []).length, 2, "Only the two public contact emails should be shown");
 const authorizedSubstitutions = [
   ['href="tel:+5493758550237"', 'href="tel:+541127792932"'],
   ['<span>+54 9 3758 55-0237<small>Llamar</small></span>', '<span>11 2779 2932<small>Llamar</small></span>'],
@@ -42,7 +56,13 @@ assert.equal(sha256(canonicalHtml), sourceHashes["index.html"], "HTML differs be
 
 for (const [file, expectedHash] of Object.entries(sourceHashes)) {
   const source = await readFile(path.join(root, "site", file));
-  if (file !== "index.html") assert.equal(sha256(source), expectedHash, `Original source changed: ${file}`);
+  if (file === "styles.css") {
+    const styles = source.toString("utf8");
+    assert.equal(styles.split(emailStyles).length - 1, 1, "Expected approved responsive email styles");
+    assert.equal(sha256(styles.replace(emailStyles, "")), expectedHash, "CSS changed beyond approved email styles");
+  } else if (file !== "index.html") {
+    assert.equal(sha256(source), expectedHash, `Original source changed: ${file}`);
+  }
   const built = await readFile(path.join(root, "dist", file));
   assert.deepEqual(built, source, `Build transformed ${file}`);
 }
@@ -63,4 +83,4 @@ for (const match of html.matchAll(/(?:src|href)="(\/[^"#?]+)"/g)) {
 }
 assert.equal((html.match(/class="service-card"/g) ?? []).length, 10);
 assert.ok(!html.includes("__CF$cv$params") && !html.includes("/cdn-cgi/"), "Captured hosting injection must not ship");
-console.log("PASS: original HTML (approved contact/SEO changes only), CSS, JS, both images, asset paths, 10 services and byte-identical static build.");
+console.log("PASS: original HTML/CSS (approved contact, email and SEO changes only), JS, both images, asset paths, 10 services and byte-identical static build.");

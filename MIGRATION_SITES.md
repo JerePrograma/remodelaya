@@ -8,26 +8,35 @@ Se recuperó el código fuente del Site original, sin reconstruirlo en React:
   `assets/interior-hero.webp`
 
 Los cinco archivos se versionan en `site/`. El build los copia byte a byte a
-`dist/`. El CSS, JavaScript y las dos imágenes son idénticos al original.
+`dist/`. El JavaScript y las dos imágenes son idénticos al original. El CSS
+original se conserva con un bloque acotado para los nuevos enlaces de correo.
 No se importaron la configuración de alojamiento de Sites ni las inyecciones
 que Cloudflare agregaba a las capturas HTML del sitio publicado.
 
-## Únicas modificaciones al HTML original
+## Modificaciones autorizadas al original
 
 Se conservan las correcciones de contacto que ya tenía el repositorio:
 
 - Contacto principal: `+54 9 3758 55-0237`, enlace `tel:+5493758550237`
 - WhatsApp alternativo: `11 2779 2932`
 - Todos los CTAs comerciales y de servicios usan WhatsApp `5491127792932`
+- Presupuestos por email: `presupuestos@remodelaya.com.ar`
+- Consultas generales: `contacto@remodelaya.com.ar`
+
+Los dos correos se incorporan como enlaces `mailto:` debajo de los teléfonos,
+con un icono de sobre del mismo estilo. Las direcciones largas se ajustan a
+pantallas angostas sin recortes ni desplazamiento horizontal. No se publican
+las casillas administrativa ni personal para mantener claras las opciones.
 
 También se mantienen los cuatro metadatos Open Graph y el enlace canónico
-`https://remodelaya.com.ar/` ya existentes en el repositorio. No se modifican
-el diseño, los textos restantes, los iconos, los estilos ni el comportamiento.
+`https://remodelaya.com.ar/` ya existentes en el repositorio. El resto del diseño,
+los textos, iconos, estilos y comportamiento se conserva.
 
 ## Verificación
 
 `npm run build && npm test` comprueba los hashes del código original, permite
-solamente las sustituciones de contacto/SEO indicadas y verifica que `dist/`
+solamente las sustituciones de contacto/SEO y adiciones de correo indicadas,
+y verifica que `dist/`
 contenga exactamente los mismos cinco archivos que `site/`.
 
 La tipografía original es `Arial, Helvetica, sans-serif`, sin fuentes remotas.

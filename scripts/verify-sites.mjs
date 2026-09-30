@@ -96,6 +96,17 @@ try {
     watchErrors(page);
     await page.goto(baseUrl, { waitUntil: "load" });
     await settle(page);
+    // Capture the current design, then remove only the approved email additions
+    // to compare the unchanged original layout with the canonical Sites audits.
+    await page.screenshot({
+      path: path.join(output, `${viewport.name}.png`),
+      fullPage: true,
+      animations: "disabled",
+    });
+    assert.equal(await page.locator(".contact-email").count(), 2);
+    await page.locator(".contact-email").evaluateAll((links) =>
+      links.forEach((link) => link.remove()),
+    );
     const actual = await page.evaluate(
       ({ selectors, properties }) => ({
         viewport: {
@@ -165,16 +176,15 @@ try {
         `Document height: ${actual.viewport.documentHeight} vs ${reference.viewport.documentHeight}`,
       );
     }
-    await page.screenshot({
-      path: path.join(output, `${viewport.name}.png`),
-      fullPage: true,
-      animations: "disabled",
-    });
     await writeFile(
       path.join(output, `${viewport.name}.audit.json`),
       JSON.stringify(actual, null, 2),
     );
-    report.geometry.push({ viewport: viewport.name, differences });
+    report.geometry.push({
+      viewport: viewport.name,
+      comparison: "Original layout with approved email additions removed; screenshot shows current design",
+      differences,
+    });
     await page.close();
   }
 
@@ -215,6 +225,29 @@ try {
       layout.lastCardColumn,
       width > 700 && width <= 980 ? "span 3" : "auto",
     );
+    const emails = await page.locator(".contact-email").evaluateAll((links) =>
+      links.map((link) => {
+        const address = link.querySelector("small");
+        const rect = link.getBoundingClientRect();
+        const range = document.createRange();
+        range.selectNodeContents(address);
+        return {
+          href: link.getAttribute("href"),
+          width: link.clientWidth,
+          scrollWidth: link.scrollWidth,
+          addressFits: [...range.getClientRects()].every((line) =>
+            line.left >= rect.left - 1 && line.right <= rect.right + 1,
+          ),
+          lineCount: range.getClientRects().length,
+        };
+      }),
+    );
+    assert.equal(emails.length, 2);
+    for (const email of emails) {
+      assert.ok(email.scrollWidth <= email.width + 1, `Email link overflow at ${width}px: ${email.href}`);
+      assert.ok(email.addressFits, `Email address clipped at ${width}px: ${email.href}`);
+    }
+    layout.emails = emails;
     report.responsive.push(layout);
   }
 
@@ -338,6 +371,18 @@ try {
   report.functional.push(
     "WhatsApp destinations/encoding, preserved phone correction, dynamic year and reduced motion",
   );
+  for (const [label, email] of [
+    ["Presupuestos por email", "presupuestos@remodelaya.com.ar"],
+    ["Consultas generales", "contacto@remodelaya.com.ar"],
+  ]) {
+    const link = page.getByRole("link", { name: `${label} ${email}`, exact: true });
+    assert.equal(await link.getAttribute("href"), `mailto:${email}`);
+    assert.equal(await link.locator("small").textContent(), email);
+    await link.focus();
+    assert.equal(await link.evaluate((a) => a === document.activeElement), true);
+    assert.equal(await link.evaluate((a) => getComputedStyle(a).outlineStyle), "solid");
+  }
+  report.functional.push("Labeled mailto links, exact public addresses and visible keyboard focus");
   await page.goto(baseUrl, { waitUntil: "load" });
   await page.keyboard.press("Tab");
   assert.equal(
