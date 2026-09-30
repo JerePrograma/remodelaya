@@ -1,0 +1,30 @@
+{
+  "sourceUrl": "https://remodelaya.jereprograma.chatgpt.site/",
+  "sourceOrigin": "https://remodelaya.jereprograma.chatgpt.site",
+  "summary": [
+    {
+      "viewport": {
+        "name": "desktop-1440",
+        "width": 1440,
+        "height": 1000
+      },
+      "title": "Remodelaya · Construcción integral y refacciones",
+      "documentHeight": 2702,
+      "styleSheetCount": 1,
+      "resourceCount": 4
+    },
+    {
+      "viewport": {
+        "name": "mobile-390",
+        "width": 390,
+        "height": 844
+      },
+      "title": "Remodelaya · Construcción integral y refacciones",
+      "documentHeight": 4046,
+      "styleSheetCount": 1,
+      "resourceCount": 4
+    }
+  ],
+  "downloadedResources": 7,
+  "failedResources": 2
+}

@@ -1,0 +1,68 @@
+[
+  {
+    "url": "https://remodelaya.jereprograma.chatgpt.site/",
+    "status": 200,
+    "contentType": "text/html",
+    "bytes": 16036,
+    "saved": true,
+    "path": "reference\\sites-original\\resources\\index"
+  },
+  {
+    "url": "https://remodelaya.jereprograma.chatgpt.site/app.js",
+    "status": 200,
+    "contentType": "text/javascript",
+    "bytes": 2286,
+    "saved": true,
+    "path": "reference\\sites-original\\resources\\app.js"
+  },
+  {
+    "url": "https://remodelaya.jereprograma.chatgpt.site/assets/brand-mark.png",
+    "status": 200,
+    "contentType": "image/png",
+    "bytes": 22710,
+    "saved": true,
+    "path": "reference\\sites-original\\resources\\assets\\brand-mark.png"
+  },
+  {
+    "url": "https://remodelaya.jereprograma.chatgpt.site/assets/interior-hero.webp",
+    "status": 200,
+    "contentType": "application/octet-stream",
+    "bytes": 307406,
+    "saved": true,
+    "path": "reference\\sites-original\\resources\\assets\\interior-hero.webp"
+  },
+  {
+    "url": "https://remodelaya.jereprograma.chatgpt.site/cdn-cgi/challenge-platform/h/b/jsd/oneshot/d76008a69eab/0.16186523511486317:1790766024:QHDnwOsbVLtPVXc5XurULrgFZ3usCcB7H6e9JnlkoRk/a4331e3d4d07c7a9",
+    "status": 405,
+    "saved": false
+  },
+  {
+    "url": "https://remodelaya.jereprograma.chatgpt.site/cdn-cgi/challenge-platform/h/b/jsd/oneshot/d76008a69eab/0.16186523511486317:1790766024:QHDnwOsbVLtPVXc5XurULrgFZ3usCcB7H6e9JnlkoRk/a4331e5e5fb90ec6",
+    "status": 405,
+    "saved": false
+  },
+  {
+    "url": "https://remodelaya.jereprograma.chatgpt.site/cdn-cgi/challenge-platform/h/b/scripts/jsd/d76008a69eab/main.js?",
+    "status": 200,
+    "contentType": "application/javascript; charset=UTF-8",
+    "bytes": 20924,
+    "saved": true,
+    "path": "reference\\sites-original\\resources\\cdn-cgi\\challenge-platform\\h\\b\\scripts\\jsd\\d76008a69eab\\main.js"
+  },
+  {
+    "url": "https://remodelaya.jereprograma.chatgpt.site/cdn-cgi/challenge-platform/scripts/jsd/main.js",
+    "status": 200,
+    "contentType": "application/javascript; charset=UTF-8",
+    "bytes": 20415,
+    "saved": true,
+    "path": "reference\\sites-original\\resources\\cdn-cgi\\challenge-platform\\scripts\\jsd\\main.js"
+  },
+  {
+    "url": "https://remodelaya.jereprograma.chatgpt.site/styles.css",
+    "status": 200,
+    "contentType": "text/css",
+    "bytes": 16788,
+    "saved": true,
+    "path": "reference\\sites-original\\resources\\styles.css"
+  }
+]
