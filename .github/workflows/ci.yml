@@ -11,7 +11,8 @@ permissions:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    # Match canonical Windows captures, including native control styles.
+    runs-on: windows-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
